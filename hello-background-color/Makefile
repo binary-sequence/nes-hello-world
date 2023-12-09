@@ -49,4 +49,5 @@ $(DEBUG_OBJECTS): build/debug/%.o: src/%.asm build/debug
 
 
 .PHONY: clean
+clean:
 	rm -rf build/
