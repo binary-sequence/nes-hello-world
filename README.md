@@ -7,3 +7,10 @@ Instead, it is made to hanlde graphics.
 Because showing the text "hello, world!" requires complex handling of grapchis, a different approach is usually used as NES hello world.
 
 The most common approach is to just change the background color of the screen.
+- [hello-background-color](hello-background-color/src/hello-background-color.asm)
+
+# Special thanks to
+- https://www.youtube.com/@NesHacker
+- https://famicom.party
+- https://www.nesdev.org/wiki/Nesdev_Wiki
+  - https://discord.gg/JSG4kuF8EK (including people in the discord channel)
