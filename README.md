@@ -11,6 +11,7 @@ The most common approach is to just change the background color of the screen.
 
 # Special thanks to
 - https://www.youtube.com/@NesHacker
+- https://www.youtube.com/@DisplacedGamers
 - https://famicom.party
 - https://www.nesdev.org/wiki/Nesdev_Wiki
   - https://discord.gg/JSG4kuF8EK (including people in the discord channel)
