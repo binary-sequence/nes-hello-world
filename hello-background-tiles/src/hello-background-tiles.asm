@@ -78,7 +78,7 @@ PPUDATA   = $2007
   ;                          ^^
   LDX #$00
   STX PPUADDR ; (this also clears the address latch)
-   ; Finally, we need the index of a PPU's internal color
+  ; Finally, we need the index of a PPU's internal color
   LDA #$0F ; black in this case
   STA PPUDATA ; After writing, PPUADDR is increased by 1
   ; so, we can write the palette 0 color 1
