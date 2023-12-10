@@ -28,6 +28,10 @@ build/obj:
 .PHONY: run
 run: build/dist/$(ROM_NAME)
 	fceux build/dist/$(ROM_NAME)
+
+.PHONY: everdrive
+everdrive: build/dist/$(ROM_NAME)
+	edlinkn8.py build/dist/$(ROM_NAME)
 ########################################################################
 
 

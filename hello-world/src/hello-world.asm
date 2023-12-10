@@ -42,41 +42,64 @@ string: .asciiz "Hello, World!" ; null-terminated string
   LDX #%00000000
   STX PPUCTRL ; PPU is unstable on boot, ignore NMI for now
   STX PPUMASK ; Deactivate PPU drawing, so CPU can safely write to PPU's VRAM
+  BIT PPUSTATUS ; Clear the vblank flag; its value on boot cannot be trusted
   vblankwait1: ; PPU unstable on boot, wait for vertical blanking
-    BIT PPUSTATUS ; Clear the vblank flag
-    BPL vblankwait1
+    BIT PPUSTATUS ; Clear the vblank flag;
+    ; and store its value into bit 7 of CPU status register
+    BPL vblankwait1 ; repeat until bit 7 of CPU status register is set (1)
   vblankwait2: ; PPU still unstable, wait for another vertical blanking
-    BIT PPUSTATUS ; Clear the vblank flag
+    BIT PPUSTATUS
     BPL vblankwait2
   ; PPU should be stable enough now
 
+  ; RAM contents on boot cannot be trusted (visual artifacts)
+  ; Clear nametable 0; It is at PPU VRAM's address $2000
+  ; CPU registers size is 1 byte, but addresses size is 2 bytes
+  LDA PPUSTATUS ; Clear w register,
+  ; so the next write to PPUADDR is taken as the VRAM's address high byte.
+  ; First, we need the high byte of $2000
+  ;                                  ^^
+  LDA #$20
+  STA PPUADDR ; (this also sets the w register,
+  ; so the next write to PPUADDR is taken as the VRAM's address low byte)
+  ; Then, the low byte of  $2000
+  ;                           ^^
+  LDA #$00
+  STA PPUADDR ; (this also clears the w register)
+  LDX #0 ; index for inner loop; overflows after 256
+  LDY #4 ; index for outer loop; repeat overflow 4 times
+  empty_background:
+    ; The size of a nametable is 1024 bytes
+    ; 256 bytes * 4 = 1024 bytes
+    ; A register already contains 0
+    STA PPUDATA ; After writing, PPUADDR is automatically increased by 1
+    INX
+    BNE empty_background ; repeat until overflow
+    DEY
+    BNE empty_background ; repeat 4 times
+
   ; Background color (index 0 of first color palette)
   ; is at PPU's VRAM address 3f00
-  ; CPU registers size is 1 byte, but addresses size is 2 bytes
-  LDX PPUSTATUS ; Clear w register,
-  ; so the next write to PPUADDR is taken as the VRAM's address high byte
-  ; First, we need the high byte of 3f00
-  ;                                 ^^
-  LDX #$3f
-  STX PPUADDR ; (this also sets the w register,
-  ; so the next write to PPUADDR is taken as the VRAM's address low byte)
-  ; Then, the low byte of  3f00
-  ;                          ^^
-  LDX #$00
-  STX PPUADDR ; (this also clears the w register)
-  ; Finally, we need the index of a PPU's internal color
-  LDA #$0F ; black in this case
-  STA PPUDATA ; After writing, PPUADDR is increased by 1
-  ; so, we can write the palette 0 color 1
-  LDA #$30 ; white
+  LDX #$3f ; 3f00
+  ;          ^^
+  STX PPUADDR
+  LDX #$00 ; 3f00
+  ;            ^^
+  STX PPUADDR
+  ; Finally, we need indexes of two PPU's internal color
+  LDA #$0F ; black for the transparency color (palette 0 color 0)
+  STA PPUDATA
+  LDA #$30 ; white for the first background color (palette 0 color 1)
   STA PPUDATA
 
   ; Nametable 0
   ; I have chosen a position near the center of the screen
-  ; Address $218c
-  LDX #$21
+  ; Address 218c
+  LDX #$21 ; 218c
+  ;          ^^
   STX PPUADDR
-  LDX #$8c
+  LDX #$8c ; 218c
+  ;            ^^
   STX PPUADDR
   LDX #0
   LDA string,X ; load first character of the string
