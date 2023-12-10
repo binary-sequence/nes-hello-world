@@ -18,7 +18,7 @@ PPUDATA   = $2007
 .byte %00000000 ; NTSC format
 
 .segment "CHR"
-.incbin "../res/pattern_tables.chr"
+.incbin "../res/pattern_tables.chr" ; include the binary file created with NEXXT
 
 .segment "RODATA" ; Prepare data separated from the logic in this segment
 string: .asciiz "Hello, World!" ; null-terminated string

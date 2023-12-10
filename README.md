@@ -36,7 +36,7 @@ The next step is to place background tiles on the screen.
 Finally, we are ready to create background tiles that represent letters and use them to display "hello, world!"
 ![hello-world.nes in the emulator mesen](screenshots/hello-world-fceux.png)
 
-But, this time, instead of hardcoding binary data, we can use the [NEXXT](https://frankengraphics.itch.io/nexxt) tile editor to create the background pattern table.
+But, this time, instead of hardcoding binary data, we can use the [NEXXT](https://frankengraphics.itch.io/nexxt) tile editor to create the [background pattern table](hello-world/res/).
 ![hello-world.nes pattern table and palettes in NEXXT tile editor](screenshots/hello-world-pattern-table-palettes.png)
 The characters are placed in the pattern table in such a way that their pattern table index coincides with their ASCII index.
 
