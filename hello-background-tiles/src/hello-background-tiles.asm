@@ -45,7 +45,7 @@ PPUDATA   = $2007
 
 .export nmi_handler
 .proc nmi_handler ; 6502 requires this handler
-  RTI
+  RTI ; Just exit, we have no use for this handler in this program.
 .endproc
 
 .export reset_handler
