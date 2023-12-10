@@ -1,5 +1,5 @@
 # nes-hello-world
-Hello world examples in [NES 6502 assembler](https://www.masswerk.at/6502/6502_instruction_set.html#PHP) for [ca65/ld65](https://cc65.github.io/doc/)
+Hello world examples in [NES 6502 assembler](https://www.masswerk.at/6502/6502_instruction_set.html) for [ca65/ld65](https://cc65.github.io/doc/)
 
 The [NES (Nintendo Entertainment System)](https://en.wikipedia.org/wiki/Nintendo_Entertainment_System), known as famicom in Japan, cannot handle text.
 Instead, it is made to handle graphics.
