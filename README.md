@@ -9,7 +9,8 @@ Because showing the text "hello, world!" requires complex handling of grapchis, 
 1. [hello-background-color.nes](#hello-background-colornes)
 2. [hello-background-tiles.nes](#hello-background-tilesnes)
 3. [hello-world.nes](#hello-worldnes)
-4. [Special thanks to](#special-thanks-to)
+4. [Next level: background scrolling](#next-level-background-scrolling)
+5. [Special thanks to](#special-thanks-to)
 
 ## hello-background-color.nes
 The most common approach is to just change the background color of the screen.
@@ -44,6 +45,9 @@ Notice that to have available all characters of the ASCII table, almost half of 
 
 - See the source code [hello-world](hello-world/src/hello-world.asm)
 
+# Next level: background scrolling
+
+When you are ready for the next level, see https://github.com/binary-sequence/nes-background-scrolling/tree/dev
 
 # Special thanks to
 - https://www.youtube.com/@NesHacker
